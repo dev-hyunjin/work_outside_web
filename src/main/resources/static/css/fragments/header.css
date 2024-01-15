@@ -1,0 +1,59 @@
+/* 제목 폰트 */
+@font-face {
+    font-family: cafe24;
+    src: url("../../font/NanumSquareNeo-eHv.ttf");
+}
+
+/* 내용 폰트 */
+@font-face {
+    font-family: cafe24air;
+    src: url("../../font/NanumSquareNeo-bRg.ttf");
+}
+
+h2 {
+    margin-top: 50px;
+}
+
+.top {
+    display: flex;
+    align-items: center;
+    font-family: cafe24air;
+    font-weight: bold;
+    font-size: 17px;
+    cursor: pointer;
+    position: absolute;
+    /* z-index: -100; */
+    justify-content: flex-end;
+    right: 0;
+}
+
+.top > img {
+    width: 30px;
+    height: 30px;
+}
+
+/* 로그아웃 */
+.logout {
+    display: none;
+    margin: 0;
+}
+
+.logout2 {
+    display: flex;
+    justify-content: flex-end;
+    list-style: none;
+    font-family: cafe24air;
+    position: absolute;
+    top: 30px;
+    right: 20px;
+}
+
+.flex {
+    display: flex;
+    flex-direction: column;
+}
+
+a{
+    text-decoration: none;
+    color: black;
+}

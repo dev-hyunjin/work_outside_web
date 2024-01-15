@@ -1,0 +1,116 @@
+/* 배경 */
+body , .edit , .plus{
+    background: #f9f6f3;
+}
+
+/* 사이드 시작 */
+.side-box {
+    background-color: #b0a695;
+}
+
+/* 해당 페이지에 들어갔을 때 컬러 */
+#click {
+    background-color: #776b5d;
+}
+
+#click2 {
+    color: #776b5d;
+    font-weight: bold;
+}
+/* 사이드 끝 */
+
+/* 공통 */
+/* 일정 요소 */
+.list1 , .list2 {
+    background-color: white;
+}
+
+/* 등록 버튼 */
+.plus-btn {
+    background-color: #b0a695;
+}
+
+/* 등록 버튼 마우스 올렸을 때 */
+.plus-btn:hover {
+    background-color: #776b5d;
+}
+
+/* 모달 버튼 설정 */
+.modal-btn {
+    background-color: #b0a695;
+}
+
+.modal-btn:hover {
+    background-color: #776b5d;
+}
+
+/* 통계 페이지 */
+/* 버튼 색상 */
+.submit {
+    background-color: #b0a695;
+}
+
+.submit:hover {
+    background-color: #776b5d;
+}
+
+/* 그래프 */
+.graph {
+    background-color: #b0a695;
+}
+
+.graph:hover {
+    background-color: #776b5d;
+}
+
+.paging-item-selected {
+    background-color: #b0a695;
+}
+
+/* 관리자 페이지 */
+/* 사원 관리 */
+.create {
+    background-color: #b0a695;
+}
+
+.create:hover {
+    background-color: #776b5d;
+}
+
+/* 부서 관리 */
+.dept-btn {
+    background-color: #b0a695;
+}
+
+.dept-btn:hover {
+    background-color: #776b5d;
+}
+
+/* 근무지 관리 */
+.wo-add {
+    background-color: #b0a695;
+}
+
+.wo-add:hover {
+    background-color: #776b5d;
+}
+
+.edit-btn {
+    background-color: #b0a695;
+}
+
+.edit-btn:hover {
+    background-color: #776b5d;
+}
+
+.paging-item:hover {
+    background-color: #776b5d;
+}
+
+.btn > .edit {
+    background-color: #b0a695;
+}
+
+.btn > .edit:hover {
+    background-color: #776b5d;
+}
