@@ -32,7 +32,7 @@
     </th:block>
 
     <div style="width: 100%; height: 600px;">
-    <th:block th:if="${mainList.size() <= 6 and mainList.size() > 1}">
+    <th:block th:if="${mainList.size() <= 6 and mainList.size() >= 1}">
 
         <div class="box-main">
             <div class="sub-box" th:each="mainList : ${mainList}">
@@ -65,7 +65,8 @@
         <div class="mainbox">
             <div class="sub-box" th:each="mainList : ${mainList}" style="margin : 0 10px; width: 48%;">
                 <div class="list1" style="margin: 5px 10px;">
-                    <li class="point1">●</li>
+                    <li class="point1" th:if="${mainList.workStatus == '이동중'}">●</li>
+                    <li class="point1" th:if="${mainList.workStatus == '진행중'}" style="color: #F06292">●</li>
                     <li class="username test" style="width: 90px; margin : 0 20px 0 10px;"><span th:text="${mainList.memberName}"/></li>
                     <li class="usertime test" style="width: 195px; margin : 0 20px 0 10px"><span th:text="${mainList.workStartTime}"/> ~</li>
                     <li class="ow test" style="width: 295px; margin : 0 20px 0 10px"><span th:text="${mainList.workPlaceName}"/></li>

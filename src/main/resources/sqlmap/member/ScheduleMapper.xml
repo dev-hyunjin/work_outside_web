@@ -33,7 +33,7 @@
         end || ' ' ||
         to_char(tw.work_predict_time, 'HH24:MI') work_predict_time,
         to_char(tw.work_predict_time, 'YYYY-MM-DD HH24:MI') as real_work_predict_time ,
-        tw.work_title
+        tw.work_title, tw.work_real_start_time
         from tbl_member tm join tbl_work tw
         on tm.member_number = tw.member_number
         join tbl_workplace tw2
@@ -82,6 +82,7 @@
         <if test='updateEndTime != null and updateEndTime == "Y"'>
             work_end_time = current_timestamp(3)::timestamp,
         </if>
+        work_real_start_time = #{workRealStartTime}::timestamp,
         work_status = #{workStatus}
         WHERE work_number = #{workNumber} and member_number = #{memberNumber}
     </update>
@@ -106,13 +107,16 @@
         <if test='workPredictTime != null and workPredictTime !=""'>
             work_predict_time = #{workPredictTime}::timestamp,
         </if>
+        <if test='workRealStartTime != null and workRealStartTime !=""'>
+            work_real_start_time = #{workRealStartTime}::timestamp,
+        </if>
         work_title = #{workTitle}
         WHERE work_number = #{workNumber}
     </update>
 
     <update id="scheduleUpdate2">
         UPDATE tbl_work
-        SET work_start_time = #{workStartTime}::timestamp , work_end_time = null , work_detail = #{workDetail}, workplace_number = #{workPlaceNumber} , work_status = #{workStatus} , work_spent_time = #{workSpentTime}, work_title = #{workTitle}, work_predict_time = #{workPredictTime}::timestamp
+        SET work_start_time = #{workStartTime}::timestamp , work_end_time = null , work_detail = #{workDetail}, workplace_number = #{workPlaceNumber} , work_status = #{workStatus} , work_spent_time = #{workSpentTime}, work_title = #{workTitle}, work_predict_time = #{workPredictTime}::timestamp, work_real_start_time = #{workRealStartTime}::timestamp
         WHERE work_number = #{workNumber}
     </update>
 

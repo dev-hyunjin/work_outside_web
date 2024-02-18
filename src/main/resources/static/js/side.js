@@ -1,21 +1,21 @@
 let url = window.location.href;
 
 // local 1000 서버
-if(url.indexOf('http://localhost:1000/admin/') != -1){
-    $('.adminpage').attr("id", "click");
-}
-
-if(url == 'http://localhost:1000/list/list') {
-    $('.listpage').attr("id", "click");
-}
-
-if(url == 'http://localhost:1000/sd') {
-    $('.schedulepage').attr("id", "click");
-}
-
-if(url.indexOf('http://localhost:1000/statistics/') != -1) {
-    $('.statisticspage').attr("id", "click");
-}
+// if(url.indexOf('http://localhost:1000/admin/') != -1){
+//     $('.adminpage').attr("id", "click");
+// }
+//
+// if(url == 'http://localhost:1000/list/list') {
+//     $('.listpage').attr("id", "click");
+// }
+//
+// if(url == 'http://localhost:1000/sd') {
+//     $('.schedulepage').attr("id", "click");
+// }
+//
+// if(url.indexOf('http://localhost:1000/statistics/') != -1) {
+//     $('.statisticspage').attr("id", "click");
+// }
 
 // -----------------------------------------------------------------------------
 // local 8080 서버

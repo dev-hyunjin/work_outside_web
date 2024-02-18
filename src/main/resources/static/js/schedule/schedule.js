@@ -33,7 +33,8 @@ $('.wo-list').on('click','.wo-submit',function (){
             data: {
                 workNumber: workNumber,
                 memberNumber: memberNumber,
-                workStatus: value2
+                workStatus: value2,
+                workRealStartTime : timestamp2
             },
             success: function () {
                 location.reload();
@@ -60,6 +61,10 @@ $('.wo-list').on('click','.wo-submit',function (){
 
         let minutes = workSpentTime2 / (1000*60);
 
+        let workRealStartTime = $(this).closest('.list1').find('.work_real_start_time').val();
+        console.log(workRealStartTime);
+        let timestamp3 = workRealStartTime + '.000';
+
         $.ajax({
             url: '/schedules/status',
             type: 'post',
@@ -68,6 +73,7 @@ $('.wo-list').on('click','.wo-submit',function (){
                 memberNumber: memberNumber,
                 workStatus: value2,
                 workSpentTime : minutes,
+                workRealStartTime : timestamp3
             },
             success: function () {
                 $('.modal-container-edit').css("display", "none");
@@ -295,6 +301,14 @@ $('.wo-list').on('click', '.list1', function (){
 
     // 해당 리스트의 상태값 가져오기
     let workSS = $(this).closest('.list1').find('.work-status').val();
+
+    // 해당 리스트의 업무 시작 시간 가져오기
+    let workRealStartTime = $(this).closest('.list1').find('.work_real_start_time').val();
+    $('#workRealStartTime').val(workRealStartTime);
+
+    let submit = $(this).closest('.list1').find('.wo-submit').text();
+    console.log(submit);
+
     //----------------------------------------------------------------------------
     // 해당 리스트의 상태값에 따라 진행중 체크 표시
     if (workSS == 'on' || workSS == '진행중'){
@@ -324,6 +338,8 @@ $('.wo-list').on('click', '.list1', function (){
         // 일정 수정 모달의 근무 예상종료시간 값
         let workPredictTime = $('#workPredictTime').val();
 
+        let workRealStartTime = $('#workRealStartTime').val();
+
         if(!workPredictTime) {
             alert("근무 예상종료시간을 입력해주세요.");
             $(".modal-container-edit").eq(1).css("display", "flex");
@@ -351,6 +367,11 @@ $('.wo-list').on('click', '.list1', function (){
             return false;
         }
 
+        if(!workRealStartTime && submit != '업무시작') {
+            alert("업무 시작 시간을 넣어주세요");
+            return false;
+        }
+
         // 일정 수정 모달의 시작 시간 값 DB 형식이랑 맞춰주기
         let now = new Date();
         let dateStr = now.getFullYear() + '-' + (now.getMonth() + 1) + '-' + now.getDate();
@@ -364,6 +385,10 @@ $('.wo-list').on('click', '.list1', function (){
 
         workPredictTime = workPredictTime + ":00.000";
 
+        let realStartTime = $('#workRealStartTime').val();
+        let timestamp3 = realStartTime + ':00.000';
+        console.log(realStartTime);
+
         // 해당 리스트의 진행 상황 값
         // let workStatus = $(this).closest('.list1').find('.work-status').val();
         // console.log(workStatus);
@@ -376,8 +401,9 @@ $('.wo-list').on('click', '.list1', function (){
             return false;
         }
     //----------------------------------------------------------------------------
-        if($('.workIng').is(":checked")) {
-            let value = '진행중';
+
+        if($('.workIng').is(":checked") && submit == '업무시작'){
+            let value = '이동중';
             let workET = null;
             let spentTime = '진행중';
 
@@ -394,6 +420,35 @@ $('.wo-list').on('click', '.list1', function (){
                     workSpentTime : spentTime,
                     workPredictTime: workPredictTime,
                     workTitle : workTitle
+                },
+                success : function (){
+                    console.log("성공");
+                    location.reload();
+                },
+                error : function (){
+                    console.log("실패");
+                }
+            });
+        }
+        else if($('.workIng').is(":checked")) {
+            let value = '진행중';
+            let workET = null;
+            let spentTime = '진행중';
+
+            $.ajax({
+                url : '/schedules/update2',
+                type : 'patch',
+                data : {
+                    workStartTime : timestamp,
+                    workEndTime : workET,
+                    workPlaceNumber : workPlaceNumber,
+                    workDetail : workDT2,
+                    workNumber : workNumber,
+                    workStatus : value,
+                    workSpentTime : spentTime,
+                    workPredictTime: workPredictTime,
+                    workTitle : workTitle,
+                    workRealStartTime : workRealStartTime
                 },
                 success : function (){
                     console.log("성공");
@@ -425,7 +480,8 @@ $('.wo-list').on('click', '.list1', function (){
                     workStatus : workStatusEnd,
                     workSpentTime : minutes,
                     workPredictTime: workPredictTime,
-                    workTitle : workTitle
+                    workTitle : workTitle,
+                    workRealStartTime : workRealStartTime
                 },
                 success : function (){
                     console.log("성공?");
@@ -491,6 +547,7 @@ $('.workIng').on('click', function() {
 
     if($(this).is(':checked')) {
         $(this).parents('.modal-container').find('input[name=workEndTime]').val('');
+        $(this).parents('.modal-container').find('input[name=workRealStartTime]').val('');
     } else {
         $(this).parents('.modal-container').find('input[name=workEndTime]').val(endTime);
     }
@@ -552,6 +609,7 @@ $('.vacation-btn').on('click', function (){
 });
 
 $(document).ready( function (){
+    document.cookie = `expires=Fri, 31 Dec 9999 23:59:59 GMT;`;
     if($('.memberUse').val() == 'V') {
         $('.vacation-btn').prop('checked', true);
         $('.plus-btn').prop('disabled', true);

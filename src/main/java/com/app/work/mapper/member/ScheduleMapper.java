@@ -24,7 +24,7 @@ public interface ScheduleMapper {
     public ScheduleVO scheduleTime(Integer workNumber);
 
 //    현재 진행중인 일정 완료하기
-    public void scheduleStatus(Integer workNumber, Integer memberNumber, String workStatus, String updateEndTime);
+    public void scheduleStatus(Integer workNumber, Integer memberNumber, String workStatus, String updateEndTime, String workRealStartTime);
 
 //    일정 등록/수정 근무지 리스트 불러오기
     public List<WorkplaceDTO> workList();

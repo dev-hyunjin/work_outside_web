@@ -11,9 +11,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.view.RedirectView;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @Controller
@@ -24,7 +26,7 @@ public class ListController {
 	private final ListService listService;
 	private final MainService mainService;
 	
-	@GetMapping("/list")
+	@GetMapping("list")
 	public String listPage(ListVO listVO, Model model, HttpServletRequest req) {
 		try {
 			String toDay = listVO.getToDay();
@@ -51,5 +53,27 @@ public class ListController {
 		}
 
 		return "list/list";
+	}
+
+	@PostMapping("work-list")
+	@ResponseBody
+	public List<ListVO> workList(HttpSession session) {
+		ListVO listVO = new ListVO();
+
+		listVO.setMemberRank(String.valueOf(session.getAttribute("memberRank")));
+		Integer teamNumber = (Integer) session.getAttribute("teamNumber");
+
+		return listService.findWorkList(listVO, teamNumber);
+	}
+
+	@PostMapping("end-list")
+	@ResponseBody
+	public List<ListVO> endList(HttpSession session) {
+		ListVO listVO = new ListVO();
+
+		listVO.setMemberRank(String.valueOf(session.getAttribute("memberRank")));
+		Integer teamNumber = (Integer) session.getAttribute("teamNumber");
+
+		return listService.findFinishWorkList(listVO, teamNumber);
 	}
 }

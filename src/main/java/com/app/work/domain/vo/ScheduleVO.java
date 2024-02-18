@@ -26,4 +26,5 @@ public class ScheduleVO {
     private String memberUse;
     private String workPredictTime;
     private String realWorkPredictTime;
+    private String workRealStartTime;
 }

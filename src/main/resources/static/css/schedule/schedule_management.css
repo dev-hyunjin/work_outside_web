@@ -222,6 +222,11 @@ textarea {
     .modal-ing-checkbox {justify-content: flex-start !important;}
     .list2 {width:45% !important;}
     .vacation { width: 70%; display: flex; flex-direction: column !important; margin: 25px 0 0 0 !important;}
+    .modal-content-div {margin-bottom: 15px !important;}
+    .modal-content-div:first-child {margin-bottom: 10px !important;}
+    .modal-title {margin-bottom: 10px !important;}
+    .modal-container {overflow: scroll;}
+    .modal-button {margin-top : 0 !important;}
 }
 
 /*휴가자*/

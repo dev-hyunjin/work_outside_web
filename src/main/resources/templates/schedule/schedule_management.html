@@ -57,6 +57,7 @@
                         <input type="hidden" class="real_work_predict_time" th:value="${scheduleList.realWorkPredictTime}">
                         <input type="hidden" class="work_detail" th:value="${scheduleList.workDetail}">
                         <input type="hidden" class="member_use" th:value="${scheduleList.memberUse}"/>
+                        <input type="hidden" class="work_real_start_time" th:value="${scheduleList.workRealStartTime}"/>
                         <!-- 진행중일 때 -->
                         <li class="point1" th:if="${scheduleList.workStatus == '이동중'}">●</li>
                         <li class="point1" th:if="${scheduleList.workStatus == '진행중'}" style="color: #F06292;">●</li>
@@ -84,6 +85,8 @@
                         <input type="hidden" class="workNumber" th:value="${scheduleList.workNumber}"/>
                         <input type="hidden" class="real_work_predict_time" th:value="${scheduleList.realWorkPredictTime}">
                         <input type="hidden" class="work_detail" th:value="${scheduleList.workDetail}">
+                        <input type="hidden" class="work_real_start_time" th:value="${scheduleList.workRealStartTime}"/>
+
                         <!-- 진행 완료일 때 -->
                         <li class="point2 point">●</li>
                         <li class="username test"><span th:text="${scheduleList.memberName}"/>
@@ -211,8 +214,14 @@
                             <input type="datetime-local" class="workTime workEndTime2" id="workEndTime2" name="workEndTime">
                         </div>
                         <div class="modal-ing-checkbox">
-                            <input type="checkbox" class="workIng"><span>진행중</span>
+                            <input type="checkbox" class="workIng"><span>업무 진행중</span>
                         </div>
+                    </div>
+                    <div class="modal-content-div">
+                        <div class="modal-content-title">
+                            <span>업무 시작 시간</span>
+                        </div>
+                        <input type="datetime-local" class="workTime" id="workRealStartTime" name="workRealStartTime">
                     </div>
                     <div class="modal-content-div">
                         <div class="modal-content-title">

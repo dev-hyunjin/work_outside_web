@@ -121,7 +121,7 @@ input {
 .modal-ing-checkbox {
     display: flex;
     justify-content: flex-end;
-    padding-right: 129px;
+    padding-right: 100px;
 }
 
 .modal-ing-checkbox input {

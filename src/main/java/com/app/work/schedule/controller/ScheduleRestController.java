@@ -16,14 +16,14 @@ public class ScheduleRestController {
     private final ScheduleService scheduleService;
 
     @PostMapping("/status")
-    public String scheduleStatus(HttpServletRequest req, ScheduleVO scheduleVO, Integer workNumber, String workSpentTime){
+    public String scheduleStatus(HttpServletRequest req, ScheduleVO scheduleVO, Integer workNumber, String workSpentTime, String workRealStartTime){
         Integer memberNumber  = (Integer) req.getSession().getAttribute("sessionNumber");
         scheduleVO.setMemberNumber(memberNumber);
 
         String workStatus = scheduleVO.getWorkStatus().equals("업무시작") ? "진행중" : "종료";
         String updateEndTime = scheduleVO.getWorkStatus().equals("업무시작") ? null : "Y";
 
-        scheduleService.modifySchedule(workNumber, memberNumber, workStatus, updateEndTime);
+        scheduleService.modifySchedule(workNumber, memberNumber, workStatus, updateEndTime, workRealStartTime);
         if(scheduleVO.getWorkStatus().equals("완료")) {
             scheduleService.SpentTimeModify(workNumber, workSpentTime);
         }

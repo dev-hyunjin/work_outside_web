@@ -32,8 +32,8 @@ public class ScheduleService {
     }
 
 //    일정 완료하기
-    public void modifySchedule(Integer workNumber, Integer memberNumber, String workStatus, String updateEndTime){
-        scheduleMapper.scheduleStatus(workNumber, memberNumber, workStatus, updateEndTime);
+    public void modifySchedule(Integer workNumber, Integer memberNumber, String workStatus, String updateEndTime, String workRealStartTime){
+        scheduleMapper.scheduleStatus(workNumber, memberNumber, workStatus, updateEndTime, workRealStartTime);
     }
 
 //    근무지 리스트
