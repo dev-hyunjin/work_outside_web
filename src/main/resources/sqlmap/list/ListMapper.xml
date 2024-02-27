@@ -40,7 +40,7 @@
         on tw.workplace_number = tw2.workplace_number
         join tbl_team tt
         on tm.team_number = tt.team_number
-        where work_status = '종료' and tw.work_start_time = current_date
+        where work_status = '종료' and date_trunc('day', tw.work_start_time) = current_date
         <if test='listVO.memberRank != "관리자" and teamNumber != null'>
             and tm.team_number = #{teamNumber}
         </if>
