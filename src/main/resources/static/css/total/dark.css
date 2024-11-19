@@ -1,0 +1,152 @@
+/* 배경 */
+body , .edit , .plus{
+    background: #2e313d;
+    color : white;
+}
+
+/* 사이드 시작 */
+.side-box {
+    background-color: #121319;
+}
+
+/* 해당 페이지에 들어갔을 때 컬러 */
+#click {
+    background-color: #6f7486;
+}
+
+#click2 {
+    color: #6f7486;
+    font-weight: bold;
+}
+/* 사이드 끝 */
+
+/* 공통 */
+/* 일정 요소 */
+.list1 , .list2 {
+    background-color: #6f7486;
+}
+
+/* 등록 버튼 */
+.plus-btn {
+    background-color: #121319;
+}
+
+/* 등록 버튼 마우스 올렸을 때 */
+.plus-btn:hover {
+    background-color: #6f7486;
+}
+
+/* 모달 배경 */
+.modal {
+    background-color: #2e313d;
+}
+
+/* 모달 버튼 설정 */
+.modal-btn {
+    background-color: #6f7486;
+
+}
+
+.modal-btn:hover {
+    background-color: #121319;
+}
+
+/* 통계 페이지 */
+/* 버튼 색상 */
+.submit {
+    background-color: #121319;
+}
+
+.submit:hover {
+    background-color: #6f7486;
+}
+
+/* 그래프 */
+.graph {
+    background-color: #121319;
+}
+
+.graph:hover {
+    background-color: #6f7486;
+}
+
+.paging-item-selected {
+    background-color: #121319;
+}
+
+/* 관리자 페이지 */
+/* 사원 관리 */
+.create {
+    background-color: #121319;
+}
+
+.create:hover {
+    background-color: #6f7486;
+}
+
+/* 부서 관리 */
+.dept-btn {
+    background-color: #121319;
+}
+
+.dept-btn:hover {
+    background-color: #6f7486;
+}
+
+/* 근무지 관리 */
+.wo-add {
+    background-color: #121319;
+}
+
+.wo-add:hover {
+    background-color: #6f7486;
+}
+
+.list1_1 .edit-btn {
+    background-color: #121319;
+}
+
+.list1_1 .edit-btn:hover {
+    background-color: #6f7486;
+}
+
+.paging-item:hover {
+    background-color: #6f7486;
+}
+
+svg {
+    fill: white;
+}
+
+.check_point {
+    filter: brightness(0) invert(1);
+}
+
+.logout2 > a{
+    color : white;
+}
+
+.btn > .edit {
+    background-color: #121319;
+}
+
+.btn > .edit:hover {
+    background-color: #6f7486;
+}
+
+.workList1 .select-items {
+    background-color: #2e313d;
+}
+
+.workplaceNum:hover {
+    background-color: #6f7486 !important;
+}
+
+.modal3,
+.modal-content{
+    background: #2e313d;
+}
+
+.modal3 > span {
+    color: white;
+}

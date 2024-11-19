@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>외근 현황</title>
+    <link rel="stylesheet" th:href="@{/css/fragments/header.css}">
+    <link rel="stylesheet" th:href="@{/css/fragments/side.css}">
+    <link rel="stylesheet" th:href="@{/css/list/list.css}">
+    <link rel="stylesheet" href="/css/modal/work_mgmt_modal.css">
+</head>
+<body>
+<header class="header"  th:replace="fragments/header :: header"></header>
+    <div class="main">
+        <input type="hidden" th:value="${session.teamNumber}" class="teamNumber"/>
+        <!-- 사이드 시작 -->
+        <!-- side.html 연결하기 -->
+        <th:block th:if="${session.memberNumber != null}">
+            <div class="side" th:replace="fragments/side :: side"></div>
+        </th:block>
+
+        <th:block th:unless="${session.memberNumber != null}">
+            <div class="color_template" style="width: 150px; display: flex; align-items: flex-start;">
+                <span class="color_template_item">🎨</span>
+                <div class="click_color">
+                    <select class="template_color" name="template_color">
+                        <option value="">default</option>
+                        <option value="dark">Dark</option>
+                        <option value="warm">warm</option>
+                        <option value="earth">Earth</option>
+                        <option value="vintage">Vintage</option>
+                        <option value="cream">Cream</option>
+                        <option value="coffee">Coffee</option>
+                    </select>
+                </div>
+            </div>
+        </th:block>
+        <!-- 사이드 끝 -->
+
+        <!-- 메인 시작 -->
+        <div class="main-box">
+
+            <!-- 페이지 제목 -->
+            <div class="title">
+                <h2>외근 현황</h2>
+            </div>
+            <!-- 페이지 제목 끝 -->
+
+            <!-- 당일 일정 리스트 시작 -->
+            <div class="wo-list">
+                <!-- 당일 날짜 -->
+                <div class="today">
+                    <h4 th:text="${#calendars.format(#calendars.createNow(), 'yyyy-MM-dd') + ' 일정'}"><!--현재 진행중인 일정--></h4>
+                    <div class="explain">
+                        <li class="point1">●</li><span>이동중</span>
+                        <li class="point1" style="color: #F06292">●</li><span>작업중</span>
+                        <li class="point4">●</li><span>대기중</span>
+                        <li class="point2">●</li><span>종료</span>
+                    </div>
+                </div>
+
+<!--                <th:block th:if="${workList == null or #lists.isEmpty(workList)}">-->
+                <th:block th:if="${(workList == null or #lists.isEmpty(workList)) and (finishWorkList == null or #lists.isEmpty(finishWorkList))}">
+                    <div style="margin: auto; font-size: 24px; margin-top: 50px;">
+                        등록된 외근 일정이 없습니다.
+                    </div>
+                </th:block>
+
+                <!-- 반복되는 리스트 시작 -->
+                <div class="listloop" >
+                </div>
+                <!-- 반복되는 리스트 끝 -->
+            </div>
+            <!-- 당일 일정 리스트 끝 -->
+            </div>
+        <!-- 메인 끝 -->
+    </div>
+
+
+
+<!-- 모달 시작 -->
+<!-- 일정 등록 모달 -->
+<div class="modal-container modal-container-popup">
+    <div class="modal" style="height: auto; width: 770px; min-height: 400px;">
+        <div class="modal-content" style="margin-top: 30px;">
+            <div class="modal-title" style="margin-bottom: 30px;">
+                <span><span class="modal-name" style="font-size: 16px; font-weight: bold;"/> 일정 상세</span>
+                <div class="modal-close">
+                    <svg xmlns="http://www.w3.org/2000/svg" data-name="Capa 1" id="Capa_1" viewBox="0 0 20 19.84">
+                        <path d="M10.17,10l3.89-3.89a.37.37,0,1,0-.53-.53L9.64,9.43,5.75,5.54a.37.37,0,1,0-.53.53L9.11,10,5.22,13.85a.37.37,0,0,0,0,.53.34.34,0,0,0,.26.11.36.36,0,0,0,.27-.11l3.89-3.89,3.89,3.89a.34.34,0,0,0,.26.11.35.35,0,0,0,.27-.11.37.37,0,0,0,0-.53Z"/>
+                    </svg>
+                </div>
+            </div>
+            <div class="modal-major-content">
+                <div class="modal-content-div" style="font-size: 12px; margin-bottom: 20px;">
+                    <div class="modal-content-title" style="margin-bottom: 10px;">
+                        <span><span class="check_point">✔️</span> 근무시간</span>
+                    </div>
+                    <div class="modal-content-time-select">
+                        <span class="modal-st"></span>
+                        <span>부터</span>
+                        <span class="modal-et"></span>
+                    </div>
+                </div>
+                <div class="modal-content-div" style="font-size: 12px; margin-bottom: 20px;">
+                    <div class="modal-content-title" style="margin-bottom: 10px;">
+                        <span><span class="check_point">✔️</span> 근무지</span>
+                    </div>
+                    <div class="modal-content-workplace-select">
+                        <span class="modal-wp"></span>
+                    </div>
+                </div>
+                <div class="modal-content-div" style="font-size: 12px; margin-bottom: 20px;">
+                    <div class="modal-content-title" style="margin-bottom: 10px;">
+                        <span><span class="check_point">✔️</span> 근무 내용</span>
+                    </div>
+                    <div class="modal-content-work-title" style="font-size: 20px;">
+                        <span class="modal-worktitle"></span>
+                    </div>
+                    <div class="modal-content-work-textarea" style="word-break: break-word; font-size: 28px; font-weight: bold; line-height: 40px;">
+                        <span class="modal-detail" style="white-space: pre-line;"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+<script src="/js/header.js"></script>
+<script src="/js/side.js"></script>
+<script th:inline="javascript">
+    let lists = [[${workList}]];
+    let finishLists = [[${finishWorkList}]];
+</script>
+<script src="/js/list/list-common.js"></script>
+<script src="/js/list/list.js"></script>
+</html>

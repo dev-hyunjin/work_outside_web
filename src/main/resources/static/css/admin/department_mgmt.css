@@ -1,0 +1,154 @@
+/* 제목 폰트 */
+@font-face {
+    font-family: cafe24;
+    src: url("../../font/NanumSquareNeo-eHv.ttf");
+}
+
+/* 내용 폰트 */
+@font-face {
+    font-family: cafe24air;
+    src: url("../../font/NanumSquareNeo-bRg.ttf");
+}
+
+
+/* 기본 설정 */
+body {
+    margin: 0;
+}
+
+h2 {
+    font-family: cafe24;
+    margin-top: 50px;
+}
+
+/* 메인 요소 크기 */
+.main {
+    width: 100%;
+    display: flex;
+    margin: auto;
+}
+
+/* 전체 크기 설정 */
+.main-box {
+    width: 95%;
+}
+
+.main-box li {
+    list-style: none;
+}
+
+/* 제목 */
+.title {
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    align-items: center;
+    font-family: cafe24;
+}
+
+/* 서브 페이지 시작 */
+.sub-page {
+    width: 50%;
+    display: flex;
+    justify-content: center;
+}
+
+.sub-page > li {
+    margin: 0 10px;
+    font-family: cafe24air;
+    cursor: pointer;
+}
+
+/* 해당 페이지 컬러 */
+#point {
+    color :#336699;
+    font-weight: bold;
+}
+/* 서브 페이지 끝 */
+
+/* 부서 추가 */
+.dept-create {
+    width: 60%;
+    display: flex;
+    justify-content: flex-end;
+    margin: auto;
+    margin-top: 30px;
+}
+
+.dept-btn {
+    background-color: #6699CC;
+    color: white;
+    font-family: cafe24air;
+    font-size: 15px;
+    border: 0;
+    border-radius: 6px;
+    padding: 5px 10px;
+    cursor: pointer;
+}
+
+.dept-btn:hover {
+    background-color: #336699;
+}
+/* 부서 추가 끝 */
+
+/* 부서 전체 리스트 */
+.dept-main {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+/* 부서 리스트 */
+.company-list {
+    width: 60%;
+    margin: auto;
+    font-family: cafe24air;
+}
+
+hr {
+    width: 100%;
+}
+
+/* 추가 버튼 */
+.plus, .edit {
+    border: 0;
+    background-color: white;
+    color : white;
+    cursor: pointer;
+    /*filter: opacity(0.5) drop-shadow(0px 0px 0px white)*/
+}
+
+.dept {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    padding : 0;
+}
+
+.add-list {
+    display: flex;
+    justify-content: space-between;
+}
+
+/* 부서 이름 */
+.dept-name {
+    cursor: pointer;
+}
+
+/* 팀 이름 */
+ul .team-name {
+    cursor: pointer;
+}
+
+ul .team-name:hover {
+    color: #336699;
+    text-decoration: underline;
+}
+
+.team-list {
+    padding-left: 25px;
+}
+
+@media all and (max-width: 420px) {
+    .side-box {width: 85px}
+}

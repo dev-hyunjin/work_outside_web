@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" th:href="@{/css/fragments/side.css}">
+</head>
+<body>
+    <div class="main2" th:fragment="side">
+    <div class="side-box">
+        <div class="color_template">
+            <span class="color_template_item">🎨</span>
+            <div class="click_color">
+                <select class="template_color" name="template_color">
+                    <option value="">default</option>
+                    <option value="dark">Dark</option>
+                    <option value="warm">warm</option>
+                    <option value="earth">Earth</option>
+                    <option value="vintage">Vintage</option>
+                    <option value="cream">Cream</option>
+                    <option value="coffee">Coffee</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="content">
+            <th:block th:if="${session.memberRank == '수석 매니저' || session.memberRank == '팀장' || session.memberRank == '관리자'}">
+            <li class="listpage"><a th:href="@{/list/list}">외근 현황</a></li>
+            </th:block>
+
+            <li class="schedulepage"><a th:href="@{/sd}">일정 관리</a></li>
+
+            <!-- 관리자인지 부서 관리자인지에 따라 조건 걸어주기 -->
+            <th:block th:if="${session.memberRank == '매니저'}" >
+                <li class="statisticspage"><a th:href="@{/statistics/statistics(workStartTime=${#dates.format(#dates.createNow(), 'yyyy-MM-dd')}, workEndTime=${#dates.format(#dates.createNow(), 'yyyy-MM-dd')}, memberNumber=${session.sessionNumber})}">통계</a></li>
+            </th:block>
+            <th:block th:if="${session.memberRank == '수석 매니저' || session.memberRank == '팀장'}" >
+            <li class="statisticspage"><a th:href="@{/statistics/statistics(workStartTime=${#dates.format(#dates.createNow(), 'yyyy-MM-dd')}, workEndTime=${#dates.format(#dates.createNow(), 'yyyy-MM-dd')})}">통계</a></li>
+            </th:block>
+
+            <th:block th:if="${session.memberRank == '관리자'}">
+                <li class="statisticspage"><a th:href="@{/statistics/statistics-admin(workStartTime=${#dates.format(#dates.createNow(), 'yyyy-MM-dd')}, workEndTime=${#dates.format(#dates.createNow(), 'yyyy-MM-dd')})}">통계</a></li>
+            </th:block>
+
+            <th:block th:if="${session.memberRank == '관리자'}">
+            <!-- 관리자 조건 필요 -->
+            <li class="adminpage"><a th:href="@{/admin/user-mgmt}">관리자</a></li>
+            </th:block>
+        </div>
+    </div>
+</div>
+</body>
+<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+</html>

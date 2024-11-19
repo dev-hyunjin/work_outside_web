@@ -1,0 +1,259 @@
+/* 제목 폰트 */
+@font-face {
+    font-family: cafe24;
+    src: url("../../font/NanumSquareNeo-eHv.ttf");
+}
+
+/* 내용 폰트 */
+@font-face {
+    font-family: cafe24air;
+    src: url("../../font/NanumSquareNeo-bRg.ttf");
+}
+
+/* 기본 설정 */
+body {
+    margin: 0;
+}
+
+h2 {
+    font-family: cafe24;
+    margin-top: 50px;
+}
+
+/* 메인 요소 크기 */
+.main {
+    width: 100%;
+    display: flex;
+    margin: auto;
+}
+
+/* 사이드 시작 */
+.side-box {
+    width: 150px;
+    height: 100dvh;
+    background-color: #6699CC;
+    font-family: cafe24air;
+}
+
+.content {
+    margin-top: 100px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.content > li {
+    list-style: none;
+    width: 100%;
+    height: 50px;
+    color : white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+/* 해당 페이지에 들어갔을 때 컬러 */
+#click {
+    background-color: #336699;
+}
+/* 사이드 끝 */
+
+/* 전체 크기 설정 */
+.main-box {
+    width: 95%;
+}
+
+.main-box li {
+    list-style: none;
+}
+
+/* 제목 */
+.title {
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    align-items: center;
+    font-family: cafe24;
+}
+
+/* 서브 페이지 */
+.sub-page {
+    width: 50%;
+    display: flex;
+    justify-content: center;
+}
+
+.sub-page > li {
+    margin: 0 10px;
+    font-family: cafe24air;
+    cursor: pointer;
+}
+
+#point {
+    color :#336699;
+    font-weight: bold;
+}
+/* 서브 페이지 끝 */
+
+/* 리스트 시작 */
+.st-list {
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    align-items: center;
+    font-family: cafe24air;
+    margin: 50px 0 0 0;
+}
+
+/* 검색 요소 */
+.btn-main {
+    width: 81%;
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 10px;
+}
+
+.st-list  li {
+    list-style: none;
+    font-size: 20px;
+    margin: 0 10px;
+}
+
+/* 전체 보기 */
+.e-check {
+    display: flex;
+    align-items: center;
+}
+
+/* 검색 */
+.submit {
+    background-color: #6699CC;
+    color: white;
+    font-family: cafe24air;
+    font-size: 15px;
+    border: 0;
+    border-radius: 6px;
+    padding: 6px 15px;
+    cursor: pointer;
+}
+
+.submit:hover {
+    background-color: #336699;
+}
+
+/* 엑셀 */
+.excel {
+    background-color: #3caf39;
+    color: white;
+    font-family: cafe24air;
+    font-size: 15px;
+    border: 0;
+    border-radius: 6px;
+    padding: 6px 10px;
+    cursor: pointer;
+}
+
+.excel:hover {
+    background-color: #2f882c;
+}
+
+/* 버튼 리스트 */
+.btn-list {
+    display: flex;
+}
+
+.btn-main li {
+    margin: 0 5px;
+}
+
+/* 통계 리스트 시작 */
+.list-main-box {
+    width: 80%;
+    display: flex;
+    text-align: center;
+    flex-direction: column;
+    /*border: 1px solid gray;*/
+    border-radius: 5px;
+    padding: 10px 0 20px 0;
+    align-items: center;
+}
+
+.st-list-box {
+    width: 90%;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    margin: 3px 0;
+}
+
+.st-list-sub {
+    width: 90%;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    margin: 5px 0;
+    cursor: pointer;
+}
+
+/* 날짜 */
+.date {
+    width: 170px;
+}
+
+/* 이름 */
+.name {
+    width: 8%;
+    text-align: left;
+}
+
+.name2 {
+    width: 8%;
+    text-align: left;
+}
+
+/* 소속 - 관리자 버전에만 적용 */
+.team {
+    width: 10%;
+    text-align: left;
+}
+
+.team2 {
+    width: 10%;
+    text-align: left;
+}
+
+/* 시작 시간&끝나는 시간 */
+.start-time ,
+.end-time{
+    width: 20%;
+    text-align: left;
+    padding-left: 30px;
+}
+
+.start-time2 ,
+.end-time2{
+    width: 20%;
+}
+
+/* 근무지 */
+.wo {
+    width: 20%;
+}
+
+.wo2 {
+    width: 20%;
+}
+
+/* 소요 시간 */
+.tt {
+    width: 12%;
+    text-align: left;
+}
+
+.tt2 {
+    width: 12%;
+    text-align: left;
+}
+
+/* 통계 리스트 끝 */

@@ -1,0 +1,90 @@
+/* 사이드 시작 */
+.side-box {
+    background-color: #6699CC;
+}
+
+/* 해당 페이지에 들어갔을 때 컬러 */
+#click {
+    background-color: #336699;
+}
+
+#click2 {
+    color: #336699;
+    font-weight: bold;
+}
+/* 사이드 끝 */
+
+/* 공통 */
+/* 일정 요소 */
+.list1 , .list2 {
+    background-color: white;
+}
+
+/* 등록 버튼 */
+.plus-btn {
+    background-color: #6699CC;
+}
+
+/* 등록 버튼 마우스 올렸을 때 */
+.plus-btn:hover {
+    background-color: #336699;
+}
+
+/* 모달 버튼 설정 */
+.modal-btn {
+    background-color: rgb(102, 153, 204);
+}
+
+.modal-btn:hover {
+    background-color: #336699;
+}
+
+/* 통계 페이지 */
+/* 버튼 색상 */
+.submit {
+    background-color: #6699CC;
+}
+
+.submit:hover {
+    background-color: #336699;
+}
+
+/* 그래프 */
+.graph {
+    background-color: #6699CC;
+}
+
+.graph:hover {
+    background-color: #336699;
+}
+
+.paging-item-selected {
+    background-color: #6699CC;
+}
+
+/* 관리자 페이지 */
+/* 사원 관리 */
+.create {
+    background-color: #6699CC;
+}
+
+.create:hover {
+    background-color: #336699;
+}
+
+/* 근무지 관리 */
+.wo-add {
+    background-color: #6699CC;
+}
+
+.wo-add:hover {
+    background-color: #336699;
+}
+
+.edit-btn {
+    background-color: #6699CC;
+}
+
+.edit-btn:hover {
+    background-color: #336699;
+}

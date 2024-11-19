@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.app.work.mapper.member.ScheduleMapper">
+    <!--당일 날짜-->
+    <select id="toDay" resultType="String">
+        select to_char(current_date, 'YYYY"년" MM"월" DD"일"') as to_day
+    </select>
+
+    <!--현재 시간-->
+    <select id="toTime" resultType="String">
+        SELECT TO_CHAR(current_timestamp, 'HH24:MI') AS to_time
+    </select>
+
+    <!--종료 시간-->
+    <select id="endTime" resultType="String">
+        SELECT TO_CHAR(current_timestamp, 'YYYY-MM-DD HH24:MI') AS end_time
+    </select>
+
+    <!--등록된 일정 리스트-->
+    <select id="scheduleList" resultType="scheduleVo">
+        select tm.member_number as memberNumber, tm.member_name , tm.member_rank , tw.work_number ,
+        case when EXTRACT(hour from tw.work_start_time) <![CDATA[ < 12 then '오전' ]]>
+        else '오후'
+        end || ' ' ||
+        to_char(tw.work_start_time, 'HH24:MI') work_start_time ,
+        case when EXTRACT(hour from tw.work_end_time) <![CDATA[ < 12 then '오전' ]]>
+        else '오후'
+        end || ' ' ||
+        to_char(tw.work_end_time, 'HH24:MI') work_end_time,
+        case
+        when EXTRACT(hour
+        from
+        tw.work_real_start_time) <![CDATA[ < 12 then '오전' ]]>
+        else '오후'
+        end || ' ' || to_char(tw.work_real_start_time,
+        'HH24:MI') work_real_start_time3,
+        to_char(work_start_time, 'YYYY-MM-DD HH24:MI') as work_start_time2 ,
+        to_char(work_start_time, 'YYYY-MM-DD HH24:MI') as work_start_time3 ,
+        to_char(work_end_time, 'YYYY-MM-DD HH24:MI') as work_end_time2 ,
+        tw.work_detail , tw.work_status , tw.workplace_number , tw2.workplace_name, tm.member_use,
+        case when EXTRACT(hour from tw.work_predict_time) <![CDATA[ < 12 then '오전' ]]>
+        else '오후'
+        end || ' ' ||
+        to_char(tw.work_predict_time, 'HH24:MI') work_predict_time,
+        to_char(tw.work_predict_time, 'YYYY-MM-DD HH24:MI') as real_work_predict_time ,
+        to_char(tw.work_real_start_time, 'YYYY-MM-DD HH24:MI') as work_real_start_time2 ,
+        tw.work_title, tw.work_real_start_time
+        from tbl_member tm join tbl_work tw
+        on tm.member_number = tw.member_number
+        join tbl_workplace tw2
+        on tw.workplace_number = tw2.workplace_number
+            where (tm.member_number = #{memberNumber} and date_trunc('day', tw.work_start_time) >= current_date - INTERVAL '1 day' and date_trunc('day', tw.work_start_time) <![CDATA[ <= current_date ]]>) or (tm.member_number = #{memberNumber} and work_status = '진행중')
+        order by tw.work_start_time asc
+    </select>
+
+    <!--시작 시간-->
+    <select id="scheduleTime" resultType="scheduleVo">
+        select to_char(work_start_time, 'HH24:MI') as work_start_time
+        from tbl_work tw join tbl_member tm
+        on tw.member_number = tm.member_number
+        where tw.work_number = #{workNumber}
+    </select>
+
+    <!--근무지 리스트-->
+    <select id="workList" resultType="workplaceDTO">
+        select workplace_number , workplace_name
+        from tbl_workplace tw
+        <where>
+            <if test='workplaceName != null and workplaceName !=""'>
+                and workplace_name like concat('%', #{workplaceName}, '%')
+            </if>
+        </where>
+        order by workplace_name collate "ko_KR.utf8"
+    </select>
+
+    <select id="getData" resultType="scheduleVo">
+        select work_number, work_start_time, work_real_start_time ,work_end_time, workplace_number, work_title, work_detail, (select workplace_name from tbl_workplace where workplace_number = tw.workplace_number) as workplace_name
+        from tbl_work tw
+        where work_number = #{workNumber}
+    </select>
+
+    <!--일정 등록-->
+    <insert id="workInsert">
+        INSERT INTO tbl_work
+        (work_start_time, work_end_time,work_detail, member_number, workplace_number, work_status, work_spent_time, work_title, work_predict_time, work_real_start_time)
+        VALUES(#{workStartTime}::timestamp,  #{workEndTime}::timestamp ,#{workDetail}, #{memberNumber}, #{workPlaceNumber} , #{workStatus}, #{workSpentTime}, #{workTitle}, #{workPredictTime}::timestamp, #{workRealStartTime}::timestamp)
+    </insert>
+
+    <!--진행중인 일정 변경-->
+    <update id="scheduleStatus">
+        UPDATE tbl_work
+        SET
+        <if test='updateEndTime != null and updateEndTime == "Y"'>
+            work_end_time = TO_CHAR(current_timestamp, 'YYYY-MM-DD HH24:MI:00')::timestamp,
+        </if>
+        work_real_start_time = #{workRealStartTime}::timestamp,
+        work_status = #{workStatus}
+        WHERE work_number = #{workNumber} and member_number = #{memberNumber}
+    </update>
+
+    <!--  상태 변경  -->
+    <update id="status">
+        UPDATE tbl_work
+        SET
+        work_status = #{workStatus}
+        WHERE work_number = #{workNumber} and member_number = #{memberNumber}
+    </update>
+
+    <!--소요 시간 업데이트-->
+    <update id="spentTime">
+        update tbl_work
+        set work_spent_time = #{workSpentTime}
+        where work_number = #{workNumber}
+    </update>
+
+    <!--일정 수정-->
+    <update id="scheduleUpdate">
+        UPDATE tbl_work
+        SET work_real_start_time = #{workRealStartTime}::timestamp, work_end_time = #{workEndTime}::timestamp, work_detail = #{workDetail}, workplace_number = #{workPlaceNumber},
+        <if test='workStatus != null and workStatus !=""'>
+            work_status = #{workStatus},
+        </if>
+        <if test='workSpentTime != null and workSpentTime !=""'>
+            work_spent_time = #{workSpentTime},
+        </if>
+        <if test='workPredictTime != null and workPredictTime !=""'>
+            work_predict_time = #{workPredictTime}::timestamp,
+        </if>
+        work_title = #{workTitle}
+        WHERE work_number = #{workNumber}
+    </update>
+
+    <update id="scheduleUpdate2">
+        UPDATE tbl_work
+        SET work_end_time = null , work_detail = #{workDetail}, workplace_number = #{workPlaceNumber} , work_status = #{workStatus} , work_spent_time = #{workSpentTime}, work_title = #{workTitle}, work_predict_time = #{workPredictTime}::timestamp, work_real_start_time = #{workRealStartTime}::timestamp
+        WHERE work_number = #{workNumber}
+    </update>
+
+    <!--일정 삭제-->
+    <delete id="scheduleDelete">
+        DELETE FROM tbl_work
+        WHERE work_number= #{workNumber}
+    </delete>
+
+    <!--휴가 업데이트-->
+    <update id="vacationUpdate">
+        update tbl_member
+        set member_use = #{memberUse}
+        where member_number = #{memberNumber}
+    </update>
+
+    <select id="schedule" resultType="scheduleVo">
+        select tm.member_number as memberNumber, tm.member_name , tm.member_rank , tw.work_number ,
+               case when EXTRACT(hour from tw.work_start_time) <![CDATA[ < 12 then '오전' ]]>
+        else '오후'
+                   end || ' ' ||
+               to_char(tw.work_start_time, 'HH24:MI') work_start_time ,
+               case when EXTRACT(hour from tw.work_end_time) <![CDATA[ < 12 then '오전' ]]>
+        else '오후'
+                   end || ' ' ||
+               to_char(tw.work_end_time, 'HH24:MI') work_end_time, to_char(work_start_time, 'YYYY-MM-DD HH24:MI') as work_start_time2 , to_char(work_start_time, 'YYYY-MM-DD HH24:MI') as work_start_time3 ,to_char(work_end_time, 'YYYY-MM-DD HH24:MI') as work_end_time2 ,tw.work_detail , tw.work_status , tw.workplace_number , tw2.workplace_name, tm.member_use,
+               case when EXTRACT(hour from tw.work_predict_time) <![CDATA[ < 12 then '오전' ]]>
+        else '오후'
+                   end || ' ' ||
+               to_char(tw.work_predict_time, 'HH24:MI') work_predict_time,
+               to_char(tw.work_predict_time, 'YYYY-MM-DD HH24:MI') as real_work_predict_time ,
+               to_char(tw.work_real_start_time, 'YYYY-MM-DD HH24:MI') as work_real_start_time2 ,
+               tw.work_title, tw.work_real_start_time,
+               to_char(work_real_start_time, 'YYYY-MM-DD HH24:MI') as work_real_start_time2
+        from tbl_member tm join tbl_work tw
+                                on tm.member_number = tw.member_number
+                           join tbl_workplace tw2
+                                on tw.workplace_number = tw2.workplace_number
+        where date_trunc('day', tw.work_start_time) >= current_date - INTERVAL '1 day'
+        order by tw.work_start_time asc
+    </select>
+
+</mapper>

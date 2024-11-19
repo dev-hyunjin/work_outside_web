@@ -1,0 +1,257 @@
+/* 제목 폰트 */
+@font-face {
+    font-family: cafe24;
+    src: url("../../font/NanumSquareNeo-eHv.ttf");
+}
+
+/* 내용 폰트 */
+@font-face {
+    font-family: cafe24air;
+    src: url("../../font/NanumSquareNeo-bRg.ttf");
+}
+
+/* 기본 설정 */
+body {
+    margin: 0;
+}
+
+body::-webkit-scrollbar {
+    display: none;
+}
+
+/* 페이지 제목 */
+h4 {
+    margin : 0;
+    margin-top: 20px;
+    font-family: cafe24air;
+}
+
+/* 메인 요소 크기 */
+.main {
+    width: 100%;
+    display: flex;
+    margin: auto;
+}
+
+/* 사이드 시작 */
+.side-box {
+    width: 150px;
+    height: 100%;
+    background-color: #6699CC;
+    font-family: cafe24air;
+}
+
+/* 해당 페이지에 들어갔을 때 컬러 */
+#click {
+    background-color: #336699;
+}
+
+/* 사이드 버튼 */
+.content {
+    margin-top: 100px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.content li {
+    list-style: none;
+    width: 100%;
+    height: 50px;
+    color : white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.content a {
+    text-decoration: none;
+    color : white;
+}
+/* 사이드 버튼 끝 */
+/* 사이드 끝 */
+
+/* 전체 크기 설정 */
+.main-box {
+    width: 95%;
+    height: 100dvh;
+}
+
+.list-main {
+    display: flex;
+}
+
+/* 페이지 제목 */
+.title {
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    align-items: center;
+    font-family: cafe24;
+}
+
+/* 일정 리스트 시작 */
+.wo-list {
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    align-items: flex-start;
+    font-family: cafe24air;
+    /*margin: 0 0 0 100px;*/
+}
+
+/* 당일 날짜 */
+.today {
+    width: 80%;
+    margin: auto;
+    margin-bottom: 20px;
+}
+
+.listloop {
+    width: 80%;
+    display: flex;
+    /*align-items: center;*/
+    flex-direction: column;
+    margin: auto;
+}
+
+.list-sub {
+    display: flex;
+    flex-direction: column;
+}
+
+.list2 {
+    width: 25%;
+    padding: 10px 5px;
+    display: flex;
+    border: 0.5px solid rgb(221, 221, 221);
+    border-radius: 7px;
+    margin: 10px 3px;
+    box-shadow: 0 5px 5px rgba(173, 173, 173, 0.19), 0 6px 6px rgba(173,173,173,0.23);
+    align-items: center;
+}
+
+.list2 > li {
+    list-style: none;
+    /* margin: 0 10px; */
+    margin: 0px 10px 0 10px;
+    font-size: 20px;
+}
+
+.list1 {
+    width: 100%;
+    padding: 15px 5px;
+    display: flex;
+    border: 0.5px solid rgb(221, 221, 221);
+    border-radius: 7px;
+    margin: 15px 0;
+    box-shadow: 0 5px 5px rgba(173, 173, 173, 0.19), 0 6px 6px rgba(173,173,173,0.23);
+    align-items: center;
+    margin: auto;
+    margin-bottom: 20px;
+    cursor: pointer;
+}
+
+.list1 li {
+    list-style: none;
+    font-size: 20px;
+}
+
+/* 진행중 */
+.point1 {
+    color :rgb(75, 189, 75);
+    margin: 0 10px 0 10px;
+    font-size: 25px !important;
+}
+
+/* 종료 */
+.point2 {
+    color : gray;
+    margin: 0 10px 0 10px;
+    font-size: 25px !important;
+}
+
+/*휴가자*/
+.point3 {
+    color: #2a5177;
+    width: 10px;
+    margin: 0 10px 0 10px;
+    font-size: 25px !important;
+}
+
+/* 대기중 */
+.point4 {
+    color: rgb(255 154 38);
+    margin: 0 10px 0 10px;
+    font-size: 25px !important;
+}
+
+/* 직원 이름 */
+.username {
+    width: 230px;
+    /*width: 200px;*/
+}
+
+.username2 {
+    font-family: cafe24air;
+}
+
+/* 외근 시작 시간 및 종료 시간 또는 진행중 */
+.usertime {
+    width: 300px;
+    /*width: 350px;*/
+    text-align: left;
+    margin: 0 10px 0 10px;
+}
+
+/* 외근지 */
+.ow {
+    width: 200px;
+    margin: 0 10px 0 10px;
+}
+
+/* 외근 내용 */
+.work {
+    width: 560px;
+    margin: 0 10px 0 10px;
+}
+
+/* 모달 근무 제목 */
+.modal-worktitle {
+    /*font-weight: bold;*/
+}
+
+@media all and (max-width: 420px) {
+    .memberRank {display: none !important;}
+    .workPredictTime {display: none !important;}
+}
+
+.point:before {
+    color : white;
+    content: "+";
+    font-size: 20px;
+    position: absolute;
+    /*margin: 2px 5px 0px 5px;*/
+    font-weight: bold;
+    padding: 3px 0px 2px 6.5px;
+}
+
+.point-:before {
+    color : white;
+    content: "-";
+    font-size: 20px;
+    position: absolute;
+    font-weight: bold;
+    padding: 3px 0px 2px 8px;
+}
+
+.explain {
+    list-style: none;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.explain span {
+    padding-top: 4px;
+}
