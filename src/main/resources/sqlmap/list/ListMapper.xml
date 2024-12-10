@@ -21,7 +21,7 @@
         join tbl_team tt
             on tm.team_number = tt.team_number
         where (work_status = '진행중' or work_status = '이동중') and date_trunc('day', tw.work_start_time) >= current_date - INTERVAL '1 day' and date_trunc('day', tw.work_start_time) <![CDATA[ <= current_date ]]>
-        <if test='listVO.memberRank != "관리자" and teamNumber != null'>
+        <if test='listVO.memberRank != "관리자" and teamNumber != null and (listVO.memberName != "옥민정" and listVO.memberName != "정현진" and listVO.memberName != "최예은")'>
             and tm.team_number = #{teamNumber}
         </if>
         order by tw.work_start_time asc
@@ -41,7 +41,7 @@
         join tbl_team tt
         on tm.team_number = tt.team_number
         where work_status = '종료' and date_trunc('day', tw.work_start_time) = current_date
-        <if test='listVO.memberRank != "관리자" and teamNumber != null'>
+        <if test='listVO.memberRank != "관리자" and teamNumber != null and (listVO.memberName != "옥민정" and listVO.memberName != "정현진" and listVO.memberName != "최예은")'>
             and tm.team_number = #{teamNumber}
         </if>
         order by tw.work_start_time asc

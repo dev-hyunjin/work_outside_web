@@ -8,6 +8,10 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.time.Duration;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 @RestController
 @RequestMapping("/schedules/*")
@@ -25,8 +29,25 @@ public class ScheduleRestController {
         String updateEndTime = scheduleVO.getWorkStatus().equals("업무시작") ? null : "Y";
 
         scheduleService.modifySchedule(workNumber, memberNumber, workStatus, updateEndTime, workRealStartTime);
-        if(scheduleVO.getWorkStatus().equals("완료")) {
-            scheduleService.SpentTimeModify(workNumber, workSpentTime);
+        if (scheduleVO.getWorkStatus().equals("완료")) {
+            String workRealStartTimeStr = scheduleVO.getWorkRealStartTime().trim(); // 공백 제거
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS"); // 밀리초 포함
+            System.out.println("소요시간! : " + scheduleVO.getWorkSpentTime());
+
+            LocalDateTime workRealStartTime2 = LocalDateTime.parse(workRealStartTimeStr, formatter);
+            LocalDateTime workEndTime2 = LocalDateTime.now();
+
+            Duration duration = Duration.between(workRealStartTime2, workEndTime2);
+            long minutesSpent = duration.toMinutes();
+
+
+            if (scheduleVO.getWorkSpentTime().equals("NaN")) {
+                scheduleVO.setWorkSpentTime(String.valueOf(minutesSpent));
+                scheduleService.SpentTimeModify(workNumber, scheduleVO.getWorkSpentTime());
+            } else {
+                scheduleService.SpentTimeModify(workNumber, workSpentTime);
+            }
+
         }
         return "진행완료 업데이트 성공";
     }
@@ -35,6 +56,13 @@ public class ScheduleRestController {
     public String scheduleAdd(ScheduleVO scheduleVO, HttpServletRequest req){
         int memberNumber = (Integer) req.getSession().getAttribute("sessionNumber");
         scheduleVO.setMemberNumber(memberNumber);
+
+        if (scheduleVO.getWorkRealStartTime() == null || scheduleVO.getWorkRealStartTime().equals("")) {
+            scheduleVO.setWorkRealStartTime(null);
+        } else {
+            scheduleVO.setWorkRealStartTime(scheduleVO.getWorkRealStartTime());
+        }
+
         scheduleService.workRegister(scheduleVO);
 
         return  "등록 성공";
@@ -51,7 +79,6 @@ public class ScheduleRestController {
 
     @PatchMapping("/update2")
     public String scheduleUpdate2(ScheduleVO scheduleVO , Integer workNumber , HttpServletRequest req){
-
         scheduleVO.setWorkNumber(workNumber);
         scheduleService.scheduleModify2(scheduleVO);
 
@@ -89,5 +116,26 @@ public class ScheduleRestController {
         session.setAttribute("memberUse", String.valueOf((memberUse.equals('Y') ? 'V' : memberUse)));
         scheduleService.vacationModify(memberNumber, memberUse);
         return "변경 성공";
+    }
+
+    @PostMapping("/vacationAdd")
+    public String vacationAdd(Integer memberNumber, String vacationStDate, String vacationEndDate, String vacationCheck, HttpServletRequest req){
+        memberNumber = (Integer) req.getSession().getAttribute("sessionNumber");
+        scheduleService.vacationRegister(memberNumber, vacationStDate, vacationEndDate, vacationCheck);
+        return  "등록 성공";
+    }
+
+    @PostMapping("/vacationEdit")
+    public String vacationEdit(Integer memberNumber, ScheduleVO scheduleVO,HttpServletRequest req) {
+        memberNumber = (Integer) req.getSession().getAttribute("sessionNumber");
+        scheduleService.editVacation(memberNumber, scheduleVO.getVacationStDate(), scheduleVO.getVacationEndDate(), scheduleVO.getVacationCheck());
+        return "수정 성공";
+    }
+
+    @DeleteMapping("/vacationDelete")
+    public String vacationDelete(Integer memberNumber, HttpServletRequest req){
+        memberNumber = (Integer) req.getSession().getAttribute("sessionNumber");
+        scheduleService.vacationRemove(memberNumber);
+        return "삭제 성공!";
     }
 }

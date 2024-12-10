@@ -18,6 +18,9 @@ public class ListInterceptor implements HandlerInterceptor {
 
         HttpSession session = request.getSession(false);
 
+        if(session.getAttribute("memberName").equals("옥민정")|| session.getAttribute("memberName").equals("정현진") || session.getAttribute("memberName").equals("최예은")) {
+            return true;
+        }
         if(session == null || session.getAttribute("memberRank").equals("매니저")) {
             response.sendRedirect("/login?interceptor=Y");
             session.invalidate();

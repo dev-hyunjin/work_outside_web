@@ -30,4 +30,13 @@ public class ScheduleVO {
     private String workRealStartTime2;
     private String workRealStartTime3;
     private String workOff;
+
+
+    //휴가 등록을 위한 추가
+    private String vacationStDate;
+    private String vacationEndDate;
+    private String vacationStDate2;
+    private String vacationEndDate2;
+    private String vacationCheck;
+    private int vacationCnt;
 }

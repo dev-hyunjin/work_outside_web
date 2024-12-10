@@ -61,10 +61,4 @@ public class LoginController {
 		return new RedirectView("login");
 	}
 
-//	@GetMapping("param")
-//	public String getParam() {
-//
-//		return "parameter";
-//	}
-
 }

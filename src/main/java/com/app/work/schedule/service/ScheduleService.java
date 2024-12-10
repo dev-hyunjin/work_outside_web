@@ -124,4 +124,48 @@ public class ScheduleService {
         scheduleMapper.status(workNumber, memberNumber, workStatus);
 
     }
+
+    // 휴가 등록
+    public void vacationRegister(Integer memberNumber, String vacationStDate, String vacationEndDate, String vacationCheck) {
+        scheduleMapper.vacationInsert(memberNumber, vacationStDate, vacationEndDate, vacationCheck);
+    }
+
+    //휴가 삭제
+    public void vacationRemove(Integer memberNumber) {
+        scheduleMapper.vacationDelete(memberNumber);
+    }
+
+    //휴가 스케줄 처리
+    public List<ScheduleVO> findVacationList(){
+        List<ScheduleVO> list = scheduleMapper.selectVacationList();
+        return list;
+    }
+
+    //휴가 스케줄 처리
+    public ScheduleVO findVacation(Integer memberNumber){
+        if (memberNumber == null) {
+            throw new IllegalArgumentException("멤버 번호 누락");
+        }
+
+        ScheduleVO list = scheduleMapper.selectVacation(memberNumber);
+        return list;
+    }
+
+    public Integer findVacationCnt(Integer memberNumber) {
+        if (memberNumber == null) {
+            throw new IllegalArgumentException("멤버 번호 누락");
+        }
+
+        return Optional.ofNullable(scheduleMapper.vacationCnt(memberNumber)).orElseThrow(() -> {
+            throw new IllegalArgumentException("존재하지 않는 회원");
+        });
+    }
+
+    public void editVacation(Integer memberNumber, String vacationStDate, String vacationEndDate, String vacationCheck){
+        if (memberNumber == null) {
+            throw new IllegalArgumentException("멤버 번호 누락");
+        }
+
+        scheduleMapper.vacationEdit(memberNumber, vacationStDate, vacationEndDate, vacationCheck);
+    }
 }

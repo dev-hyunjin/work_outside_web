@@ -115,7 +115,7 @@ public class AdminController {
 			if(memberUse == null) memberUse = "Y";
 			if(page == null) page = 1;
 
-			Criteria criteria = new Criteria(page, 5);
+			Criteria criteria = new Criteria(page, 7);
 
 			List<MemberVO> memberList = adminService.getMemberListWithPaging(deptNumber, teamNumber, memberName, memberUse, criteria);
 			int total = adminService.getMemberListCount(deptNumber, teamNumber, memberName, memberUse, criteria);
@@ -173,7 +173,7 @@ public class AdminController {
 			if(page == null) page = 1;
 
 //		몇개 띄울지 결정하고 싶을 때 뒤에 숫자만 바꿔주면 됨
-			Criteria criteria = new Criteria(page, 5);
+			Criteria criteria = new Criteria(page, 10);
 
 			List<WorkplaceDTO> workplaceList = adminService.getWorkplaceList(workplaceUse, criteria);
 			int total = adminService.getWorkplaceCount(workplaceUse);
@@ -231,7 +231,7 @@ public class AdminController {
 
 		if (page == null) page = 1;
 
-		Criteria criteria = new Criteria(page, 5);
+		Criteria criteria = new Criteria(page, 10);
 
 		List<StatisticsVO> statisticsList = statisticsService.getAdminStatisticsList(workStartTime, workEndTime, teamNumber, workplaceNumber, memberNumber, criteria);
 		int total = statisticsService.getWorkListCount(workStartTime, workEndTime, teamNumber, workplaceNumber, memberNumber);

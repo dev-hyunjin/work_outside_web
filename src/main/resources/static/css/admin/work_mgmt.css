@@ -228,7 +228,7 @@ h2 {
 .end-time{
     width: 20%;
     text-align: left;
-    padding-left: 30px;
+    padding-left: 0 !important;
 }
 
 .start-time2 ,

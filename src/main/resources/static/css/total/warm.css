@@ -21,17 +21,18 @@ body , .edit , .plus {
 
 /* 공통 */
 /* 일정 요소 */
-.list1 , .list2 {
+.list1 , .list2 , .list3 {
     background-color: white;
 }
 
 /* 등록 버튼 */
-.plus-btn {
+.plus-btn, .vacation-btn {
     background-color: #d96758;
 }
 
 /* 등록 버튼 마우스 올렸을 때 */
-.plus-btn:hover {
+.plus-btn:hover,
+.vacation-btn:hover{
     background-color: #B74242;
 }
 

@@ -52,6 +52,12 @@ public class ScheduleController {
 
             List<ListVO> vacationList = mainService.findVacationMember(listVO);
             model.addAttribute("vacationList", vacationList);
+
+            ScheduleVO myVacationList = scheduleService.findVacation(memberNumber);
+            model.addAttribute("myVacationList", myVacationList);
+
+            Integer vacationCnt = scheduleService.findVacationCnt(memberNumber);
+            model.addAttribute("vacationCnt", vacationCnt);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }

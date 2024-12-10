@@ -20,6 +20,7 @@
     <!-- 메인 시작 -->
     <div class="main-box">
         <input type="hidden" th:value="${session.sessionNumber}" class="memberNumber"/>
+        <input type="hidden" class="toDay" th:value="${toDay}"/>
         <input type="hidden" class="toTime" th:value="${toTime}"/>
         <input type="hidden" class="endTime" th:value="${endTime}"/>
         <!-- 페이지 제목 -->
@@ -33,83 +34,44 @@
             <div class="list-title">
                 <div>
                     <!-- 당일 날짜 및 등록 버튼 -->
-                    <h4><span th:text="${toDay + ' 일정'}"/></h4>
+                    <h4><span th:text="${toDay}"/></h4>
                 </div>
                 <div>
                     <input type="hidden" class="memberUse" th:value="${session.memberUse}">
-                    <input class="vacation-btn" type="checkbox">✨휴가</input>
+                    <button class="vacation-btn modal-open2" type="button">✨ 휴가 등록</button>
                     <button class="plus-btn modal-open" type="button">➕ 일정 등록</button>
                 </div>
             </div>
             <th:block th:if="${scheduleList == null or #lists.isEmpty(scheduleList)}">
-                <div style="margin: auto; font-size: 24px; margin-top: 50px; height: 300px; max-height: 300px;">
+                <div style="margin: auto; font-size: 24px; margin-top: 50px; height: 300px; min-height : 300px; max-height: 300px;">
                     등록된 일정이 없습니다.
                 </div>
             </th:block>
-            <!--th:each="scheduleList : ${scheduleList}"-->
-            <div class="work-list" style="min-height: 100px;">
-                <!-- 리스트 반복 시작 -->
-                <!--                <th:block th:if="${scheduleList.workEndTime == null}">-->
-                <!--                    <div class="list1">-->
-                <!--                        <input type="hidden" class="workNumber" th:value="${scheduleList.workNumber}"/>-->
-                <!--                        <input type="hidden" class="work_start_time2" th:value="${scheduleList.workStartTime2}">-->
-                <!--                        <input type="hidden" class="work_start_time3" th:value="${scheduleList.workStartTime3}">-->
-                <!--                        <input type="hidden" class="real_work_predict_time" th:value="${scheduleList.realWorkPredictTime}">-->
-                <!--                        <input type="hidden" class="work_detail" th:value="${scheduleList.workDetail}">-->
-                <!--                        <input type="hidden" class="member_use" th:value="${scheduleList.memberUse}"/>-->
-                <!--                        <input type="hidden" class="work_real_start_time" th:value="${scheduleList.workRealStartTime}"/>-->
-                <!--                        &lt;!&ndash; 진행중일 때 &ndash;&gt;-->
-                <!--                        <li class="point1" th:if="${scheduleList.workStatus == '이동중'}">●</li>-->
-                <!--                        <li class="point1" th:if="${scheduleList.workStatus == '진행중'}" style="color: #F06292;">●</li>-->
-                <!--                        <li class="username test"><span th:text="${scheduleList.memberName}"/> <span th:text="${scheduleList.memberRank + '님'}"/></li>-->
-                <!--                        <li class="usertime test">-->
-                <!--                            <span class="workST" th:text="${scheduleList.workStartTime}"/>&lt;!&ndash; ~ 진행중&ndash;&gt;-->
-                <!--                            ~-->
-                <!--                            <span class="workET" th:text="${scheduleList.workPredictTime}"/>-->
-                <!--                        </li>-->
-                <!--                        <li class="ow test"><span th:text="${scheduleList.workPlaceName}"/>-->
-                <!--                            <input type="hidden" class="workNum" th:value="${scheduleList.workPlaceNumber}"/>-->
-                <!--                        </li>-->
-                <!--                        <li class="work test"><span class="workDT" th:text="${scheduleList.workTitle}"/></li>-->
-                <!--                        <input type="hidden" th:value="${scheduleList.workStatus}" class="work-status"/>-->
-                <!--                        <li class="btn">-->
-                <!--                            <button class="wo-submit" type="button" th:if="${scheduleList.workStatus == '이동중'}">업무시작</button>-->
-                <!--                            <button class="wo-submit" type="button" th:if="${scheduleList.workStatus == '진행중'}">완료</button>-->
-                <!--                        </li>-->
-                <!--                    </div>-->
-                <!--                </th:block>-->
-
-                <!--                <th:block th:unless="${scheduleList.workEndTime == null}">-->
-                <!--                    <div class="list1">-->
-                <!--                        <input type="hidden" class="member_use" th:value="${scheduleList.memberUse}"/>-->
-                <!--                        <input type="hidden" class="workNumber" th:value="${scheduleList.workNumber}"/>-->
-                <!--                        <input type="hidden" class="real_work_predict_time" th:value="${scheduleList.realWorkPredictTime}">-->
-                <!--                        <input type="hidden" class="work_detail" th:value="${scheduleList.workDetail}">-->
-                <!--                        <input type="hidden" class="work_real_start_time" th:value="${scheduleList.workRealStartTime}"/>-->
-
-                <!--                        &lt;!&ndash; 진행 완료일 때 &ndash;&gt;-->
-                <!--                        <li class="point2 point">●</li>-->
-                <!--                        <li class="username test"><span th:text="${scheduleList.memberName}"/>-->
-                <!--                            <span th:text="${scheduleList.memberRank + '님'}"/></li>-->
-                <!--                        <li class="usertime test">-->
-                <!--                            <span class="workST" th:text="${scheduleList.workStartTime}"/>-->
-                <!--                            <input type="hidden" class="work_start_time2" th:value="${scheduleList.workStartTime2}">-->
-                <!--                            ~-->
-                <!--                            <span class="workET" th:text="${scheduleList.workEndTime}"/>-->
-                <!--                            <input type="hidden" class="work_end_time2" th:value="${scheduleList.workEndTime2}">-->
-                <!--                        </li>-->
-                <!--                        <li class="ow test"><span class="workPN" th:text="${scheduleList.workPlaceName}"/>-->
-                <!--                            <input type="hidden" class="workNum" th:value="${scheduleList.workPlaceNumber}"/></li>-->
-                <!--                        <li class="work test"><span class="workDT" th:text="${scheduleList.workTitle}"/></li>-->
-                <!--                        <input type="hidden" th:value="${scheduleList.workStatus}" class="work-status"/>-->
-                <!--                        <li class="btn"></li>-->
-                <!--                    </div>-->
-                <!--                </th:block>-->
-                <!-- 리스트 반복 끝 -->
-            </div>
+            <th:block th:unless="${scheduleList == null or #lists.isEmpty(scheduleList)}">
+                <div style="min-height: 300px;">
+                <div class="work-list previous" style="min-height: 60px;">
+                    <span class="toggle-title" style="margin-left: 260px;">3일 이전 일정<span class="toggle-arrow">▼</span> </span>
+                    <div class="toggle-content" style="display: none;">
+                        <!-- 이전 일정 리스트 반복 시작 -->
+                        <!-- 이전 일정 리스트 반복 끝 -->
+                    </div>
+                </div>
+                <div class="work-list todays" style="min-height: 200px;">
+                    <span class="toggle-title2" style="margin-left: 260px;">당일 일정</span>
+                    <!-- 리스트 반복 시작 -->
+                    <!-- 리스트 반복 끝 -->
+                </div>
+                <div class="work-list upcoming" style="min-height: 70px;">
+                    <span class="toggle-title" style="margin-left: 260px;">내일 일정 <span class="toggle-arrow">▼</span> </span>
+                    <div class="toggle-content" style="display: none;">
+                        <!-- 이후 일정 리스트 반복 시작 -->
+                        <!-- 이후 일정 리스트 반복 끝 -->
+                    </div>
+                </div>
+                </div>
+            </th:block>
             <th:block th:if="!(${vacationList == null or #lists.isEmpty(vacationList)})">
-                <div class="vacation"
-                     style="width: 70%;margin-top: 25px;display: flex;flex-direction: column;align-content: center; margin: auto;">
+                <div class="vacation" style="width: 70%;margin-top: 25px;display: flex;flex-direction: column;align-content: center; margin: auto;">
                     <h4 style="margin: 0;">휴가자</h4>
                     <div class="list-sub">
                         <div class="list2" th:each="vacationList : ${vacationList}">
@@ -119,9 +81,22 @@
                     </div>
                 </div>
             </th:block>
+
+            <th:block th:if="!(${myVacationList == null or #lists.isEmpty(myVacationList)})">
+                <div class="vacation2" style="width: 70%;margin-top: 25px;display: flex;flex-direction: column;align-content: center; margin: auto; margin-top: 10px;">
+                    <input type="hidden" th:value="${vacationCnt}" id="vacationCnt"/>
+                    <h4 style="margin: 0;">내 휴가 일정</h4>
+                    <div class="list-sub2">
+                        <div class="list3" th:each="myVacationList : ${myVacationList}">
+                            <li><span id="vacationStDate" th:text="${myVacationList.vacationStDate}"/> ~ <span id="vacationEndDate" th:text="${myVacationList.vacationEndDate}"/></li>
+                            <!-- 휴가 구분 연차 or 반차 'O' : 연차 / 'H' : 반차-->
+                            <input type="hidden" id="vacationCheck" th:value="${myVacationList.vacationCheck}"/>
+                        </div>
+                    </div>
+                </div>
+            </th:block>
         </div>
         <!-- 일정 리스트 끝 -->
-
     </div>
     <!-- 메인 끝 -->
 </div>
@@ -226,8 +201,8 @@
                             <span>근무시간</span>
                         </div>
                         <div class="modal-content-time-select">
-                            <input type="text" class="workTime workRealStartTime datetimepicker" id="workRealStartTime"
-                                   name="workRealStartTime" readonly style="background-color: white;">
+                            <input type="text" class="workTime workRealStartTime datetimepicker" id="workStartTime2"
+                                   name="workStartTime2" readonly style="background-color: white;">
                             <span>부터</span>
                             <input type="text" class="workTime workEndTime2 datetimepicker" id="workEndTime2"
                                    name="workEndTime" readonly style="background-color: white;">
@@ -297,6 +272,109 @@
     </div>
 </div>
 
+<!-- 휴가 등록 모달 -->
+<div class="modal-container modal-container-v">
+    <div class="modal">
+        <div class="modal-content">
+            <div class="modal-title">
+                <span>휴가 등록</span>
+                <div class="modal-close">
+                    <svg xmlns="http://www.w3.org/2000/svg" data-name="Capa 1" id="Capa_1" viewBox="0 0 20 19.84">
+                        <path d="M10.17,10l3.89-3.89a.37.37,0,1,0-.53-.53L9.64,9.43,5.75,5.54a.37.37,0,1,0-.53.53L9.11,10,5.22,13.85a.37.37,0,0,0,0,.53.34.34,0,0,0,.26.11.36.36,0,0,0,.27-.11l3.89-3.89,3.89,3.89a.34.34,0,0,0,.26.11.35.35,0,0,0,.27-.11.37.37,0,0,0,0-.53Z"/>
+                    </svg>
+                </div>
+            </div>
+            <div class="modal-major-content">
+                <div class="modal-content-div">
+                    <div class="modal-content-title" style="display: flex;">
+                        <span>휴가 기간</span>
+                    </div>
+                    <div class="modal-content-workautocheck-select">
+                        <div class="checkboxoption">
+                            <input type="checkbox" id="only_vacation">하루 휴가
+                            <input type="checkbox" id="half_vacation">반차
+                        </div>
+                    </div>
+                    <div class="modal-content-time-select only_vacation">
+                        <input type="date" class="vacation_st_date" name="vacation_st_date" id="vacation_st_date">
+                        <span> 부터 </span>
+                        <input type="date" class="vacation_end_date" name="vacation_end_date" id="vacation_end_date">
+                    </div>
+
+                    <div class="modal-content-time-select half_vacation">
+                        <input type="text" class="datetimepicker" name="vacation_st_date" id="vacation_st_date2" readonly style="background-color: white;">
+                        <span> 부터 </span>
+                        <input type="text" class="datetimepicker" name="vacation_end_date" id="vacation_end_date2" readonly style="background-color: white;">
+                    </div>
+                </div>
+            </div>
+            <div class="modal-button">
+                <button type="button" class="modal-btn v-add-btn">등록</button>
+                <button type="button" class="modal-btn v-cal-btn">취소</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 휴가 수정 모달 -->
+<div class="modal-container modal-container-v modal-container-v-edit">
+    <div class="modal">
+        <div class="modal-content">
+            <div class="modal-title">
+                <span>휴가 수정</span>
+                <div class="modal-close">
+                    <svg xmlns="http://www.w3.org/2000/svg" data-name="Capa 1" id="Capa_1" viewBox="0 0 20 19.84">
+                        <path d="M10.17,10l3.89-3.89a.37.37,0,1,0-.53-.53L9.64,9.43,5.75,5.54a.37.37,0,1,0-.53.53L9.11,10,5.22,13.85a.37.37,0,0,0,0,.53.34.34,0,0,0,.26.11.36.36,0,0,0,.27-.11l3.89-3.89,3.89,3.89a.34.34,0,0,0,.26.11.35.35,0,0,0,.27-.11.37.37,0,0,0,0-.53Z"/>
+                    </svg>
+                </div>
+            </div>
+            <div class="modal-major-content">
+                <div class="modal-content-div">
+                    <div class="modal-content-title" style="display: flex;">
+                        <span>휴가 기간</span>
+                    </div>
+                    <div class="modal-content-workautocheck-select">
+                        <div class="checkboxoption">
+                            <input type="checkbox" id="only_vacation2">하루 휴가
+                            <input type="checkbox" id="half_vacation2">반차
+                        </div>
+                    </div>
+                    <div class="modal-content-time-select only_vacation2">
+                        <input type="date" class="vacation_st_date" name="vacation_st_date" id="vacation_st_date3">
+                        <span> 부터 </span>
+                        <input type="date" class="vacation_end_date" name="vacation_end_date" id="vacation_end_date3">
+                    </div>
+
+                    <div class="modal-content-time-select half_vacation2">
+                        <input type="text" class="datetimepicker datetimepicker2 vacation_st_date" name="vacation_st_date" id="vacation_st_date4" readonly style="background-color: white;">
+                        <span> 부터 </span>
+                        <input type="text" class="datetimepicker datetimepicker2 vacation_end_date" name="vacation_end_date" id="vacation_end_date4" readonly style="background-color: white;">
+                    </div>
+                </div>
+            </div>
+            <div class="modal-button">
+                <button type="button" class="modal-btn v-edit-btn">수정</button>
+                <button type="button" class="modal-btn v-del-btn">삭제</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 휴가 삭제 모달 -->
+<div class="modal-container modal-container-v modal-container-v-del">
+    <div class="modal-delete">
+        <div class="modal-content">
+            <div class="modal-major-content" style="text-align: center;">
+                <span class="work-name-text">휴가 삭제하시겠습니까?</span>
+                <input type="hidden" class="del-number"/>
+            </div>
+            <div class="modal-button">
+                <button type="button" class="modal-btn del-v-btn2" style="background-color: rgb(252 82 48);">삭제</button>
+                <button type="button" class="modal-btn cal-v-btn2">취소</button>
+            </div>
+        </div>
+    </div>
+</div>
 </body>
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <script src="/js/header.js"></script>
@@ -318,4 +396,6 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <link rel="stylesheet" type="text/css" media="screen" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.min.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.full.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+
 </html>

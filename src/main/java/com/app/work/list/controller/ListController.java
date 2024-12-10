@@ -38,6 +38,7 @@ public class ListController {
 			Integer teamNumber = (Integer) req.getSession().getAttribute("teamNumber");
 
 			listVO.setMemberRank(String.valueOf(req.getSession().getAttribute("memberRank")));
+			listVO.setMemberName(String.valueOf(req.getSession().getAttribute("memberName")));
 
 			List<ListVO> workList = listService.findWorkList(listVO, teamNumber);
 

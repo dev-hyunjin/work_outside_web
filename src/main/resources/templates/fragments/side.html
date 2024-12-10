@@ -25,25 +25,25 @@
         </div>
 
         <div class="content">
-            <th:block th:if="${session.memberRank == '수석 매니저' || session.memberRank == '팀장' || session.memberRank == '관리자'}">
+            <th:block th:if="${session.memberRank == '수석 매니저' || session.memberRank == '팀장' || session.memberRank == '관리자' || session.memberName == '옥민정' || session.memberName == '정현진' || session.memberName == '최예은'}">
             <li class="listpage"><a th:href="@{/list/list}">외근 현황</a></li>
             </th:block>
 
             <li class="schedulepage"><a th:href="@{/sd}">일정 관리</a></li>
 
             <!-- 관리자인지 부서 관리자인지에 따라 조건 걸어주기 -->
-            <th:block th:if="${session.memberRank == '매니저'}" >
+            <th:block th:if="${session.memberRank == '매니저' && !(session.memberName == '옥민정' || session.memberName == '정현진' || session.memberName == '최예은')}" >
                 <li class="statisticspage"><a th:href="@{/statistics/statistics(workStartTime=${#dates.format(#dates.createNow(), 'yyyy-MM-dd')}, workEndTime=${#dates.format(#dates.createNow(), 'yyyy-MM-dd')}, memberNumber=${session.sessionNumber})}">통계</a></li>
             </th:block>
-            <th:block th:if="${session.memberRank == '수석 매니저' || session.memberRank == '팀장'}" >
+            <th:block th:if="${session.memberRank == '수석 매니저' || session.memberRank == '팀장'}">
             <li class="statisticspage"><a th:href="@{/statistics/statistics(workStartTime=${#dates.format(#dates.createNow(), 'yyyy-MM-dd')}, workEndTime=${#dates.format(#dates.createNow(), 'yyyy-MM-dd')})}">통계</a></li>
             </th:block>
 
-            <th:block th:if="${session.memberRank == '관리자'}">
+            <th:block th:if="${session.memberRank == '관리자'|| session.memberName == '옥민정' || session.memberName == '정현진' || session.memberName == '최예은'}">
                 <li class="statisticspage"><a th:href="@{/statistics/statistics-admin(workStartTime=${#dates.format(#dates.createNow(), 'yyyy-MM-dd')}, workEndTime=${#dates.format(#dates.createNow(), 'yyyy-MM-dd')})}">통계</a></li>
             </th:block>
 
-            <th:block th:if="${session.memberRank == '관리자'}">
+            <th:block th:if="${session.memberRank == '관리자'|| session.memberName == '옥민정' || session.memberName == '정현진' || session.memberName == '최예은'}">
             <!-- 관리자 조건 필요 -->
             <li class="adminpage"><a th:href="@{/admin/user-mgmt}">관리자</a></li>
             </th:block>

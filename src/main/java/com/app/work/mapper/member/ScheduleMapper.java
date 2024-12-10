@@ -53,4 +53,20 @@ public interface ScheduleMapper {
 
     //상태만 변경
     public void status(Integer workNumber, Integer memberNumber, String workStatus);
+
+    // 휴가 등록
+    public void vacationInsert(Integer memberNumber, String vacationStDate, String vacationEndDate, String vacationCheck);
+
+    // 휴가 삭제
+    public void vacationDelete(Integer memberNumber);
+
+    // 휴가 스케줄 처리
+    public List<ScheduleVO> selectVacationList();
+
+    // 휴가 수정 또는 삭제?
+    public ScheduleVO selectVacation(Integer memberNumber);
+
+    public Integer vacationCnt(Integer memberNumber);
+
+    public void vacationEdit(Integer memberNumber, String vacationStDate, String vacationEndDate, String vacationCheck);
 }

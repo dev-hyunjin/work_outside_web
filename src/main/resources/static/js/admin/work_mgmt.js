@@ -130,20 +130,19 @@ function statisticsList() {
             <div class="st-list-sub">
                 <input type="hidden" class="work-number" value="${statistic.workNumber}">
                 <input type="hidden" class="workplace-number" value="${statistic.workplaceNumber}"> 
-                <li class="name">${statistic.memberName}</li>
-                <li class="team">${statistic.teamName}</li>
-                <li class="wo">${statistic.workplaceName}</li>
-                <li class="start-time">`;
+                <li class="name name2">${statistic.memberName}</li>
+                <li class="team team2">${statistic.teamName}</li>
+                <li class="wo wo2">${statistic.workplaceName}</li>
+                <li class="start-time start-time2">`;
                 text += `${statistic.workStatus}` == '이동중' ? `${statistic.workStartTime}` : `${statistic.workRealStartTime}`;
                 text += `
-                        <li/>
-                        <li class="end-time">`;
+                        </li>
+                        <li class="end-time end-time2">`;
+                text += `${statistic.workEndTime}` == 'null' ? workEndTimeCss : `${statistic.workEndTime}`;
 
-            text += `${statistic.workEndTime}` == 'null' ? workEndTimeCss : `${statistic.workEndTime}`;
-
-            text += `
-                </li>
-                <li class="time_taken tt">` + makeMinuteToHour(`${statistic.workSpentTime}`) +`</li>
+                text += `
+                     </li>
+                    <li class="time_taken tt tt2">` + makeMinuteToHour(`${statistic.workSpentTime}`) +`</li>
             </div>
             <hr>
         `;

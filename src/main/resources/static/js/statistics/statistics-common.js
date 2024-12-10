@@ -16,7 +16,7 @@ const statisticsCommon = (function() {
                 <li class="start-time">`;
                 text += `${statistic.workStatus}` == '이동중' ? `${statistic.workStartTime}` : `${statistic.workRealStartTime}`;
                 text += `
-                        <li/>
+                        </li>
                         <li class="end-time">`;
 
             text += `${statistic.workEndTime}` == 'null' ? workEndTimeCss : `${statistic.workEndTime}`;

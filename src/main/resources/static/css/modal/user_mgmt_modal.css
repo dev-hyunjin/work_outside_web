@@ -104,7 +104,7 @@ input {
 /* 항목 이름과 input 태그 띄우고 글씨 크기 설정 */
 .user-text {
     font-size: 20px;
-    margin-bottom: 27px;
+    margin: 15px 0 20px 0;
 }
 
 /* input 태그 제목 div 설정 */

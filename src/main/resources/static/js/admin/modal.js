@@ -1,9 +1,4 @@
 $('.list-main-box').on('click', '.st-list-sub', function (){
-     if($(this).find('.time_taken').text() == '진행중') {
-          alert('진행중인 일정입니다.');
-          return;
-     }
-
      let workNumber = $(this).find('.work-number').val();
      let workPlaceNumber = $(this).find('.workplace-number').val();
      search();
